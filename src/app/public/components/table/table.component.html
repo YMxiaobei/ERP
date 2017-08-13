@@ -1,0 +1,100 @@
+<table>
+	<thead>
+		<tr>
+			<th valign="middle" *ngFor = "let h of data.theads">{{h}}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let d of data.datas">
+			<td valign="middle" class="supplier">{{d.supplier}}</td>
+			<td valign="middle">{{d.ArtNo}}</td>
+			<td valign="middle">{{d.price}}</td>
+			<td valign="middle">{{d.itemSku}}</td>
+			<td valign="middle" class="separate-cell">
+				<ul>
+					<li class="cell"
+						*ngFor="let c of d.children; let i = index" 
+						[class.marginTop]="i > 0" 
+						[ngStyle]="{
+							'height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 ),
+							'line-height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 )
+						}"
+					>
+						<span>{{c.variationId}}</span>
+					</li>
+				</ul>
+			</td>
+			<td valign="middle" class="separate-cell">
+				<ul>
+					<li class="cell"
+						*ngFor="let c of d.children; let i = index" 
+						[class.marginTop]="i > 0" 
+						[ngStyle]="{
+							'height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 ),
+							'line-height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 )
+						}"
+					>
+						<span>{{c.variationSku}}</span>
+					</li>
+				</ul>
+			</td>
+			<td valign="middle" class="separate-cell">
+				<ul>
+					<li class="cell"
+						*ngFor="let c of d.children; let i = index" 
+						[class.marginTop]="i > 0" 
+						[ngStyle]="{
+							'height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 ),
+							'line-height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 )
+						}"
+					>
+						<span>{{c.variationName}}</span>
+					</li>
+				</ul>
+			</td>
+			<td valign="middle" class="separate-cell">
+				<ul>
+					<li 
+						*ngFor="let c of d.children; let i = index" 
+						[class.marginTop]="i > 0"
+					>
+						<ul>
+							<li class="cell"
+								*ngFor="let o of c.ordersns; let i = index" 
+								[class.marginTop]="i > 0" 
+							>{{o}}</li>
+						</ul>
+					</li>
+				</ul>
+			</td>
+			<td valign="middle" class="separate-cell">
+				<ul>
+					<li class="cell"
+						*ngFor="let c of d.children; let i = index" 
+						[class.marginTop]="i > 0" 
+						[ngStyle]="{
+							'height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 ),
+							'line-height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 )
+						}"
+					>
+						<span>{{c.purchasAmount}}</span>
+					</li>
+				</ul>
+			</td>
+			<td valign="middle" class="separate-cell">
+				<ul>
+					<li class="cell"
+						*ngFor="let c of d.children; let i = index" 
+						[class.marginTop]="i > 0" 
+						[ngStyle]="{
+							'height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 ),
+							'line-height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 )
+						}"
+					>
+						<span>{{c.toltalPrice}}</span>
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</tbody>
+</table>

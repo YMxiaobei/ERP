@@ -1,0 +1,179 @@
+<div class="purchasing-table">
+	<div class="header">
+		<span class="icon">
+			<img src="/assets/imgs/u54.png" width="100%" height="100%">
+		</span>
+		<span class="title">采购表</span>
+		<div class="user">
+			<span class="name">欢迎 {{user.name}}</span>
+			<span class="i-caret-down fa fa-caret-down"></span>
+			<div class="user-operation">
+				<a href="javascript:;" class="btn btn-blue btn-sign-out">登出</a>
+				<a href="javascript:;" class="btn btn-blue btn-change-user">切换用户</a>
+				<a href="javascript:;" class="btn btn-blue btn-change-psw">更改密码</a>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="shops">
+			<div class="chose-shop">
+				<label>店铺</label>
+				<select [(ngModel)]="currentShop">
+					<option *ngFor="let shop of shops" [value]="shop.id">
+						{{shop.name}}
+					</option>
+				</select>
+			</div>
+			<a href="javascript:;" class="btn btn-blue btn-add-shop" (click)="show_add_shop=true">新增店铺</a>
+		</div>
+		<div class="add-ordersn">
+			<div class="ordersn-list" [ngStyle]="{'height.px':ordersnList_height}">
+				<ul>
+					<li 
+						*ngFor="let ordersn of ordersnStatus; let i = index" [id]="'ordersn' + i"
+						[class.repete]="checkRepete ( ordersn.value, i )"
+					>
+						<div class="repete-alert">
+							<span class="message">重复的ordersn</span>
+						</div>
+						<div class="input input-ordersn" >
+							<span class="ordersn-index">{{i+1}}</span>
+							<input type="text" 
+								(change)="addOrdersn ($event.target.value, i)"
+								[(ngModel)]="ordersn.value"
+							>
+						</div>
+						<div class="result-mark">
+							<span class="fa fa-check i-success"></span>
+							<span class="fa fa-close i-fail"></span>
+						</div>
+						
+					</li>
+				</ul>
+			</div>
+			<div class="btn-unfold-wrap">
+				<a href="javascript:;" class="btn btn-blue btn-unfold"
+					(click)="ordersnList_height=ordersnList_height===290 ? 580 : 290"
+				>
+					<span>{{ordersnList_height===290 ? '展开' : '折起'}}</span>
+					<span class="fa fa-sort-down i-down"
+						[ngClass]="{
+							'fa-sort-down':ordersnList_height===290,
+							'i-down':ordersnList_height===290,
+							'fa-sort-up':ordersnList_height===580,
+							'i-up':ordersnList_height===580
+						}"
+					></span>
+				</a>
+			</div>
+		</div>
+		<div class="table-control">
+			<a href="javascript:;" class="btn btn-statistics"
+				[ngClass]="{
+					'btn-blue': submitReady,
+					'btn-lock': !submitReady
+				}"
+				(click)="submitOrdersnList ()"
+			>统计</a>
+			<a href="javascript:;" class="btn btn-lock btn-export"
+				[ngClass]="{
+					'btn-blue': exportReady,
+					'btn-lock': !exportReady	
+				}"
+			>导出excel</a>
+			<a href="javascript:;" class="btn btn-lock btn-save"
+				[ngClass]="{
+					'btn-blue': saveReady,
+					'btn-lock': !saveReady	
+				}"
+			>保存报表</a>
+		</div>
+		<div class="table-container">
+			<div class="table-placeholder" *ngIf="!data">
+				<span>暂 无 数 据</span>
+			</div>
+			<app-table [data]="data" *ngIf="data"></app-table>
+			<app-pagination-controllor
+				[pagination_amount]="17"
+				[show_pagination_len]="6"
+				[current_pagination]="1"
+			></app-pagination-controllor>
+		</div>
+	</div>
+	<div class="add-shop-container"
+		*ngIf="show_add_shop"
+		[ngStyle]="{
+			'height.px': clientHeight,
+			'width.px': clientWidth
+		}"
+	>
+		<app-add-shop
+			(close)="show_add_shop = false"
+			(submit)="addShop($event)"
+		></app-add-shop>
+	</div>
+	<app-alert 
+		*ngIf="alert==='add_shop_success'"
+		[title]="'结果'"
+		[txt]="'商店授权成功'"
+		[txtStyle]="{
+			color:'green',
+			'text-align': 'center',
+			'line-height.px': 220 
+		}"
+		(yes)="alert=''"
+		(no)="alert=''"
+	></app-alert>
+	<app-alert 
+		*ngIf="alert==='add_shop_fail'"
+		[title]="'结果'"
+		[txt]="'商店授权失败'"
+		[txtStyle]="{
+			color:'red',
+			'text-align': 'center',
+			'line-height.px': 220 
+		}"
+		(yes)="alert=''"
+		(no)="alert=''"
+	></app-alert>
+	<app-alert 
+		*ngIf="alert==='get_table_fail'"
+		[title]="'结果'"
+		[txt]="'报表生成失败'"
+		[txtStyle]="{
+			color:'red',
+			'text-align': 'center',
+			'line-height.px': 220 
+		}"
+		(yes)="alert=''"
+		(no)="alert=''"
+	></app-alert>
+	<app-alert 
+		*ngIf="alert==='get_shops_fail'"
+		[title]="'结果'"
+		[txt]="'商店获取失败'"
+		[txtStyle]="{
+			color:'green',
+			'text-align': 'center',
+			'line-height.px': 220 
+		}"
+		(yes)="alert=''"
+		(no)="alert=''"
+	></app-alert>
+	<app-alert 
+		*ngIf="alert==='ordersn_repete_report'"
+		[txt]="'您有重复的ordersn尚未处理'"
+		[yesTxt]="'忽略重复'"
+		[noTxt]="'返回修改'"
+		[txtStyle]="{
+			color:'red',
+			'text-align': 'center',
+			'line-height.px': 220,
+			'font-size.px': 20 
+		}"
+		[yesTitle]="'系统将会从重复的ordersn中选一个保留,其他的将被删除'"
+		(yes)="alert='';loading=true;removeRepete();getTable()"
+		(no)="alert=''"
+	></app-alert>
+	<app-loading *ngIf="loading"></app-loading>
+</div>

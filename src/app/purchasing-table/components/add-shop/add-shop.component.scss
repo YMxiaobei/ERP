@@ -1,0 +1,100 @@
+@import "~compass-mixins/lib/compass";
+@import "src/public/styles/color.scss";
+@import "src/public/styles/variable.scss"; 
+
+.add-shop {
+	width: 500px;
+	height: 300px;
+	background-color: white;
+	color: #666666;
+	margin: 150px auto;
+	opacity: 0px;
+	@include transition(opacity,margin-top, 0.3s,0.3s);
+
+	.content {
+		width: 480px;
+		height: 100%;
+		margin: 0px auto;
+	}
+
+	.header {
+		width: 100%;
+		height: 40px;
+		background-color: #d9d9d9;
+		line-height: 40px;
+		position: relative;
+
+		.title {
+			font-size: 14px;
+			font-weight: bold;
+			width: 460px;
+			display: inline-block;
+		}
+
+		.btn-close {
+			font-size: 14px; 
+			color: #666666;
+
+			&:hover {
+				color: $gray1;
+			}
+		}
+	}
+
+	.body {
+		width: 100%;
+		height: 300px - 40 * 2;
+
+		form {
+			width: 438px;
+			height: 100%;
+			margin: 0px auto;
+
+			li {
+				height: 30px;
+				line-height: 30px;
+				margin-top: 20px;
+				display: inline-block;
+
+				span {
+					display: inline-block;
+					width: 73px;
+					height: 100%;
+					line-height: 30px;
+					text-align: right;
+
+					&:before {
+						content: "*";
+						color: $red1;
+					}
+				}
+			}
+
+			input {
+				height: 26px;
+				width: 317px;
+				padding: 0px 10px;
+			}
+		}
+	}
+
+	.footer {
+		height: 40px;
+		width: 100%;
+		border-top: 1px solid #d9d9d9;
+		line-height: 40px;
+
+		.control {
+			height: 100%;
+			float: right;
+		}
+
+		.btn-submit {
+			margin-right: 10px;
+		}
+
+		.link-help {
+			color: $red1;
+		}
+	}
+}

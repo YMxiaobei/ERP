@@ -1,0 +1,47 @@
+@import "~compass-mixins/lib/compass";
+@import "src/public/styles/color.scss";
+@import "src/public/styles/variable.scss"; 
+
+table {
+	width: 100%;
+	border-collapse: separate;
+    color: white;
+    font-weight: bold;
+    border-spacing: 5px;
+
+	td, th {
+		text-align: center;
+		font-weight: bold;
+		height: 35px;
+		padding: 0px;
+	}
+
+	th {
+		background-color: $gray5;
+	}
+
+	td {
+		background-color: $gray3;
+	}
+
+	td.supplier {
+		background-color: $gray5;
+	}
+
+	td.separate-cell {
+		background-color: transparent;
+	} 
+}
+
+.cell {
+	height: 35px;
+	line-height: 35px;
+	background-color: $gray3;
+}
+
+.marginTop {
+	margin-top: 5px;
+}
+
+
+

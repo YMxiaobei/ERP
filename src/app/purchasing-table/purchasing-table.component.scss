@@ -1,0 +1,295 @@
+@import "~compass-mixins/lib/compass";
+@import "src/public/styles/color.scss";
+@import "src/public/styles/variable.scss"; 
+
+.purchasing-table {
+	width: $main-container-width;
+	margin-left: 100px;
+	background-color: $white1;
+	padding-bottom: 30px;
+
+	.header {
+		width: 100%;
+		height: 77px;
+		background-color: $gray3;
+		line-height: 77px;
+		position: relative;
+		color: white;
+		font-weight: bold;
+
+		.icon {
+			width: 50px;
+			height: 50px;
+			display: inline-block;
+			vertical-align: middle;
+			position: relative;
+			top: -3px;
+			margin-left: 40px;
+		}
+
+		.title {
+			font-size: 20px;
+			margin-left: 20px;
+		}
+
+		.user {
+			position: absolute;
+			right: 50px;
+			font-size: 14px;
+			top: 0px;
+			height: 100%;
+			cursor: pointer;
+
+			&:hover {
+				.user-operation {
+					display: inline-block;
+				}
+			}
+
+			.i-caret-down {
+				font-size: 18px;
+				margin-left: 10px;
+			}
+
+			.user-operation {
+				@include box-shadow(0px 0px 3px 0px rgba(0,0,0,0.2));
+				background-color: white;
+				display: none;
+				@include transition (display 0.5s);
+				top: 50px;
+				position: absolute;
+				width: 300px;
+				text-align: center;
+				left: 0px;
+			}
+		}
+	}
+
+	.content {
+		width: 1145px;
+		margin: 0px auto;
+
+		.shops {
+			width: 100%;
+			margin-top: 30px;
+			height: 32px;
+
+			.chose-shop {
+				height: 100%;
+				width: 193px;
+				border: 1px solid $blue1;
+				background-color: $blue1;
+				line-height: 32px;
+				display: inline-block;
+				vertical-align: top;
+				
+				label {
+					color: white;
+					height: 100%;
+					width: 40px;
+					display: inline-block;
+					text-align: center;
+				}
+
+				select {
+					height: 34px;
+					position: relative;
+					top: -1px;
+					width: 150px;
+					left: 1px;
+					text-align: center;
+				}
+			}
+
+			.btn-add-shop {
+				line-height: 32px; 
+				border: 1px solid $blue1;
+			}
+		}
+
+		.add-ordersn {
+			width: 1145px - 20;
+			padding: 10px;
+			background-color: $gray4;
+			margin-top: 30px;
+
+			.ordersn-list {
+				width: 100%;
+				background-color: white;
+				border: 1px solid $gray1;
+				@include  transition(height 0.3s);
+				overflow: auto;
+
+				ul {
+					margin: 0px 0px 0px 10px;
+
+					li {
+						height: 30px;
+						margin-top: 10px;
+						position: relative;
+
+						.repete-alert {
+							height: 30px;
+							width: 64 + 980px;
+							background-color: $red3;
+							color: $red4;
+							line-height: 30px;
+							text-align: center;
+							border: 1px solid $red5;
+							display: none;
+
+							a {
+								color: $blue1;
+								margin-left: 10px;
+
+								&:hover {
+									color: $blue2;
+								}
+							}
+						} 
+
+						.input-ordersn {
+							height: 30px;
+
+							input {
+								width: 980px;
+							}
+						}
+
+						.ordersn-index {
+							display: inline-block;
+							height: 100%;
+							width: 40px;
+							background-color: $gray3;
+							font-size: 16px;
+							color: white;
+							font-weight: bold;
+							line-height: 30px;
+							text-align: center;
+						}
+
+						
+
+						.result-mark {
+							display: inline-block;
+							height: 30px;
+							width: 30px;
+							border-radius: 50%;
+							text-align: center;
+							font-weight: bold;
+							color: white;
+							margin-left: 5px;
+							vertical-align: top;
+
+							span {
+								width: 100%;
+								height: 100%;
+								display: inline-block;
+								line-height: 30px;
+								font-size: 16px;
+							}
+						}
+
+						.success {
+							background-color: $blue1;
+
+							.i-success {
+								display: block;
+							}
+
+							.i-fail {
+								display: none;
+							} 
+						}
+
+						.fail {
+							background-color: $red1;
+
+							.i-success {
+								display: none;
+							}
+
+							.i-fail {
+								display: block;
+							}
+						}
+					}
+
+					li.repete {
+						height: 70px;
+
+						.input-ordersn {
+							.ordersn-index {
+								background-color: red;
+							}
+						}
+
+						.repete-alert {
+							display: block;
+						}
+					}
+				}
+			}
+
+			.btn-unfold-wrap {
+				width: 100%;
+				margin-top: 10px;
+				text-align: center;
+
+				.i-down {
+					font-size: 16px;
+					position: relative;
+					bottom: 2px;
+					margin-left: 2px;
+				}
+
+				.i-up {
+					font-size: 16px;
+					position: relative;
+					top: 4px;
+					margin-left: 2px;
+				} 
+			}
+		}
+		
+		.table-control {
+			width: 100%;
+			text-align: center;
+			height: 30px;
+			margin-top: 60px;
+
+			.btn-statistics, .btn-export, .btn-save {
+				width: 100px;
+				margin-left: 10px;
+
+				&:first-child {
+					margin-left: 0px;
+				}
+			}
+		}
+
+		.table-container {
+			width: 100%;
+			margin-top: 50px;
+
+			.table-placeholder {
+				width: 100%;
+				height: 300px;
+				background-color: $gray4;
+				border-radius: 5px;
+				line-height: 300px;
+				text-align: center;
+				font-size: 30px;
+				color: white;
+				font-weight: bold;
+			}
+		}
+	}
+
+	.add-shop-container {
+		position: fixed;
+		top: 0px;
+		left: 0px;
+		background-color: rgba(0,0,0,0.5);
+	}
+}

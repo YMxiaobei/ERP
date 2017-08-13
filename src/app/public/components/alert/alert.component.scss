@@ -1,0 +1,63 @@
+@import "~compass-mixins/lib/compass";
+
+.alert {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 9999;
+	background-color: rgba(0,0,0,0.5); 
+	margin: 0px auto;
+}
+
+.alert-box {
+	background-color: white;
+	margin: 150px auto;
+	opacity: 0;
+	@include transition(opacity,margin-top, 0.3s,0.3s);
+}
+
+.header {
+	width: 100%;
+	height: 40px;
+	background-color: #d9d9d9;
+	line-height: 40px;
+	position: relative;
+}
+
+.title {
+	font-size: 14px;
+	font-weight: bold;
+	color: #666666;
+} 
+
+.body {
+	width: 100%;
+
+	p {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.footer {
+	width: 100%;
+	height: 40px;
+	border-top: 1px solid #d9d9d9;
+	line-height: 40px;
+
+	.control {
+		height: 100%;
+		float: right;
+
+		.btn {
+			margin-right: 10px;
+			position: relative;
+			left: 10px;
+		}
+	}
+}
+
+.content {
+	height: 100%;
+	margin: 0px auto;
+}

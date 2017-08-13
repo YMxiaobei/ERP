@@ -1,0 +1,43 @@
+@import "~compass-mixins/lib/compass";
+@import "src/public/styles/color.scss";
+@import "src/public/styles/variable.scss"; 
+
+.pagination-controllor {
+	height: 34px;
+	line-height: 34px;
+	color: #222;
+	font-weight: bold;
+	width: 100%;
+	text-align: center;
+	margin-top: 50px;
+
+	a {
+		color: white;
+		font-weight: bold;
+		height: 30px;
+		width: 30px;
+		line-height: 30px;
+		text-align: center;
+		display: inline-block;
+		background-color: $gray5;
+	}
+
+	a.btn-pre-page, a.btn-nest-page {
+		margin-left: 10px;
+		width: 80px;
+	}
+
+	ul {
+		display: inline;
+		li {
+			display: inline;
+			margin-left: 10px;
+		}
+
+		li.selected {
+			a {
+				background-color: $blue1;
+			}
+		}
+	}
+}

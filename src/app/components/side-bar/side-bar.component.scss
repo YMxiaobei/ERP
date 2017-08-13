@@ -1,0 +1,118 @@
+@import "~compass-mixins/lib/compass";
+@import "src/public/styles/color.scss";
+
+.side-bar {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	display: inline-block;
+	overflow: hidden;
+	background-color: $white1;
+
+	.side-nav {
+		height: 100%;
+		border-right: 1px solid $gray1;
+		float: left;
+
+		a {
+			display: block;
+		}
+	}
+
+	.main {
+		width: 54px;
+		background-color: $gray2;
+
+		a {
+			height: 77px;
+			width: 100%;
+			position: relative;
+			top: 20px;
+			line-height: 18px;
+			color: white;
+
+			.selected-mark {
+				width: 4px;
+				height: 100%;
+				background-color: $blue1;
+				float: left;
+				display: none;
+			}
+
+			.name {
+				width: 54px - 4px;
+				height: 100%;
+				text-align: center;
+				float: left;
+
+				.txt {
+					position: relative;
+					top: 20px;
+				}
+			}
+		}
+
+		a.selected {
+			background-color: $white1;
+			color: #222;
+
+			.selected-mark {
+				display: block;
+			}
+		}
+	}
+
+	.sub {
+		width: 242px;
+		position: relative;
+
+		.header {
+			width: 100%;
+			height: 82px;
+			border-bottom: 1px solid $gray1;
+
+			span {
+				font-size: 20px;
+				font-weight: bold;
+				position: relative;
+				top: 40px;
+			}
+
+			.icon {
+				margin-left: 30px;
+			}
+
+			.txt {
+				margin-left: 10px;
+			}
+		}
+
+		.nav-content {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 100px;
+		}
+
+		.hand-operated {
+			a {
+				height: 25px;
+				width: 100%;
+				line-height: 25px;
+
+				.icon {
+					margin-left: 30px;
+				}
+
+				.txt {
+					margin-left: 10px;
+				}
+			}
+
+			a.selected {
+				background-color: $blue2;
+				font-weight: bold;
+			}
+		}
+	} 
+}

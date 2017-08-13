@@ -1,0 +1,58 @@
+<div class="add-shop shadow"
+	[ngStyle]="{
+		opacity: opacity,
+		'margin-top.px': marginTop	
+	}"
+>
+	<div class="header">
+		<div class="content">
+			<h1 class="content title">添加shopcc授权</h1>
+			<a href="javascript:;" class="btn-close fa fa-close" (click)="close.emit(false)"></a>
+		</div>
+	</div>
+	<div class="body">
+		<form #form="ngForm">
+			<ul>
+				<li>
+					<label>
+						<span>店铺别名：</span>
+						<input type="text" name="shop-alias" class="border-radius" [(ngModel)]="data.shopAlias" required>
+					</label>
+				</li>
+				<li>
+					<label>
+						<span>PartnerId：</span>
+						<input type="text" name="partner-id" class="border-radius" [(ngModel)]="data.partnerId" required>
+					</label>
+				</li>
+				<li>
+					<label>
+						<span>ShopId：</span>
+						<input type="text" name="shop-id" class="border-radius" [(ngModel)]="data.shopId" required>
+					</label>
+				</li>
+				<li>
+					<label>
+						<span>ScrectKey：</span>
+						<input type="text" name="screct-key" class="border-radius" [(ngModel)]="data.secrectKey" required>
+					</label>
+				</li>
+			</ul>
+		</form>
+	</div>
+	<div class="footer">
+		<div class="content">
+			<a href="javascript:;" class="link-help">授权帮助</a>
+			<div class="control">
+				<a href="javascript:;" class="btn btn-blue btn-submit"
+					[ngClass]="{
+						'btn-blue': form.valid,
+						'btn-lock': !form.valid
+					}"
+					(click)="handleSubmit ( form.valid )"
+				>授权</a>
+				<a href="javascript:;" class="btn btn-red btn-cancel" (click)="close.emit(false)">取消</a>
+			</div>
+		</div>
+	</div>
+</div>

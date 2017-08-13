@@ -1,0 +1,35 @@
+<div class="pagination-controllor">
+	<a href="javascript:;" class="btn-pre-page" 
+		(click)="current_pagination = _current_pagination - 1"
+	>上一页</a>
+	<ul class="list-unstyled pagination-list">
+		<li class="first" [ngClass]="{selected: _current_pagination===1}">
+			<a href="javascript:;" (click)="handlePageChange ( 1 )">{{1}}</a>
+		</li>
+		<li class="pre-omit-operator" *ngIf="show_pre_omit">...</li>
+		<li *ngFor="let pagination of show_paginations" [ngClass]="{selected: _current_pagination===pagination}">
+			<a href="javascript:;" (click)="handlePageChange ( pagination )">{{pagination}}</a>
+		</li>
+		<li class="back-omit-operator" *ngIf="show_back_omit">...</li>
+		<li class="last" [ngClass]="{selected: _current_pagination===pagination_amount}" *ngIf="pagination_amount > 1">
+			<a href="javascript:;" (click)="handlePageChange ( pagination_amount )" >{{pagination_amount}}</a>
+		</li>
+	</ul>
+	<a href="javascript:;" class="btn-nest-page" 
+		(click)="current_pagination = _current_pagination + 1"
+		*ngIf="_current_pagination!==pagination_amount"
+	>下一页</a>
+	<div class="jump-to" *ngIf="false">
+		<span>跳至</span>
+		<div class="input">
+			<input type="text" 
+				(focus)="inputting=true" 
+				(blur)="inputting=false" 
+				[class.focus]="inputting"
+			>
+		</div>
+		<span>页</span>
+	</div>
+</div>
+
+
