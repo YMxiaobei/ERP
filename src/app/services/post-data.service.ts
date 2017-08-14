@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class PostDataService {
-	host: string = "http://121.43.179.177/";
+	host: string = "http://121.43.179.177/order/";
 	API_addShop: string = "index.php/API2/addShop";
 	API_saveTable: string = "index.php/API2/saveTable";
 	header: Headers = new Headers ( {'Content-Type':'application/json'} );

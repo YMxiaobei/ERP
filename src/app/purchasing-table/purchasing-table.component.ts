@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy,enableProdMode } from '@angular/core';
 import { PostDataService } from 'app/services/post-data.service';
 import { GetDataService } from 'app/services/get-data.service';
+import { timestampParse } from 'public/function/function'; 
 
 enableProdMode ();
 
 let mockData = {
     theads: [
-      "供应商", "货号", "单价", "VARIATION ID", "ITEM SKU(父SKU)", "VARIATION SKU(子SKU)", "VARIATION NAME", "订单编号", "采购总数", "金额"
+      "供应商", "货号", "单价", "ITEM SKU(父SKU)", "VARIATION ID", "VARIATION SKU(子SKU)", "VARIATION NAME", "订单编号", "采购总数", "金额"
     ],
     datas:[
       {
@@ -193,6 +194,9 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
   currentShop: string;
   saveReady: boolean = false;
   exportReady: boolean = false;
+  get_ordersnList_by: string = "update-time";
+  get_ordersnList_startTime: string;
+  get_ordersnList_endTime: string;
 
   constructor(
     private postData: PostDataService,
@@ -200,6 +204,8 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
   ) { }
 
   addOrdersn ( value: string, index ) {
+    console.log ( "change" );
+
     if ( !value ) {
       if ( this.ordersnList[ index ] ) {
         for ( let i = 0, len = this.ordersnStatus.length; i < len; i++ ) {
@@ -273,7 +279,7 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
     this.loading = true;
 
     this.postData.addShop ( shopInfo )
-                 .then ( this.afterAddShop ); 
+                 .then ( ( this.afterAddShop ).bind ( this ) ); 
   }
 
   getTable () {
@@ -291,6 +297,65 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
 
     this.getData.getTable ( obj, this.currentShop )
                 .then ()
+  }
+
+  getOrdersnList () {
+    let arr_start = timestampParse ( this.get_ordersnList_startTime );
+    let arr_end = timestampParse ( this.get_ordersnList_endTime );
+
+    if ( !arr_start || !arr_end ) {
+      this.alert = "timeSyntaxErr";
+      return;
+    }  
+
+    let start: any = new Date ( 
+      arr_start[ 0 ], arr_start[ 1 ] - 1, arr_start[ 2 ],
+      arr_start[ 3 ], arr_start[ 4 ], arr_start[ 5 ] 
+     );
+
+    let end: any = new Date (
+      arr_end[ 0 ], arr_end[ 1 ] - 1, arr_end[ 2 ],
+      arr_end[ 3 ], arr_end[ 4 ], arr_end[ 5 ]
+    );
+
+    start = Math.round ( start.getTime () / 1000 );
+    end = Math.round ( end.getTime () / 1000 );
+
+    this.loading = true;
+
+    this.getData.getOrdersnList ( start, end, this.currentShop, this.get_ordersnList_by )
+                .then ( this.fillOrdersnList.bind ( this ) ); 
+  }
+
+  fillOrdersnList ( rep: any ) {
+    this.loading = false;
+
+    let list = JSON.parse ( rep._body ).orders;
+    let a = 0;
+
+    while ( list.length > 0 ) {
+      let find = false;
+
+      for ( let i = a, len = this.ordersnStatus.length; i < len; i++ ) {
+        if ( !this.ordersnStatus[ i ].value ) {
+          this.ordersnStatus[ i ].value = list[ 0 ].ordersn;
+          this.ordersnStatus[ i ].webOrdersn = true;
+          this.addOrdersn ( this.ordersnStatus[ i ].value, i );
+          a = i;
+          list.splice ( 0, 1 );
+          find = true;
+          break;
+        }
+      }
+
+      if ( !find ) {
+        this.ordersnStatus.push ( { value: list[ 0 ].ordersn, repete: false, result: "", webOrdersn: true} );
+        list.splice ( 0, 1 );
+      }
+      
+    }
+
+    console.log ( this.ordersnList );
   }
 
   submitOrdersnList () {
@@ -352,9 +417,9 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
                   if ( rep.text() === "fail" ) { 
                     this.alert = "get_shops_fail"  
                   }
-                  else if ( rep.json().data ) {
-                    this.shops = this.json().data.shops;
-                    this.currentShop = this.shops[ 0 ].id;
+                  else if ( rep._body ) {
+                    this.shops = JSON.parse ( rep._body ).shops;
+                    this.currentShop = this.shops[ 0 ].shop_id;
                   }
                 }).bind ( this ) );
 

@@ -73,6 +73,7 @@
 			width: 100%;
 			margin-top: 30px;
 			height: 32px;
+			position: relative;
 
 			.chose-shop {
 				height: 100%;
@@ -104,6 +105,18 @@
 			.btn-add-shop {
 				line-height: 32px; 
 				border: 1px solid $blue1;
+			}
+
+			.get-ordersnList-by-updateTime {
+				display: inline-block;
+				position: absolute;
+				height: 100%;
+				top: 0px;
+				right: 0px;
+
+				div {
+					display: inline-block;
+				}
 			}
 		}
 
