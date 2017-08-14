@@ -1,68 +1,67 @@
 <table>
 	<thead>
 		<tr>
-			<th valign="middle" *ngFor = "let h of data.theads">{{h}}</th>
+			<th valign="middle" *ngFor = "let h of theads">{{h}}</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let d of data.datas">
+		<tr *ngFor="let d of data.items">
 			<td valign="middle" class="supplier">{{d.supplier}}</td>
 			<td valign="middle">{{d.ArtNo}}</td>
-			<td valign="middle">{{d.price}}</td>
-			<td valign="middle">{{d.itemSku}}</td>
+			<td valign="middle">{{d.item_sku}}</td>
 			<td valign="middle" class="separate-cell">
 				<ul>
 					<li class="cell"
-						*ngFor="let c of d.children; let i = index" 
+						*ngFor="let c of d.variations; let i = index" 
 						[class.marginTop]="i > 0" 
 						[ngStyle]="{
-							'height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 ),
-							'line-height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 )
+							'height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 ),
+							'line-height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 )
 						}"
 					>
-						<span>{{c.variationId}}</span>
+						<span>{{c.variation_id}}</span>
 					</li>
 				</ul>
 			</td>
 			<td valign="middle" class="separate-cell">
 				<ul>
 					<li class="cell"
-						*ngFor="let c of d.children; let i = index" 
+						*ngFor="let c of d.variations; let i = index" 
 						[class.marginTop]="i > 0" 
 						[ngStyle]="{
-							'height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 ),
-							'line-height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 )
+							'height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 ),
+							'line-height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 )
 						}"
 					>
-						<span>{{c.variationSku}}</span>
+						<span>{{c.variation_sku}}</span>
 					</li>
 				</ul>
 			</td>
 			<td valign="middle" class="separate-cell">
 				<ul>
 					<li class="cell"
-						*ngFor="let c of d.children; let i = index" 
+						*ngFor="let c of d.variations; let i = index" 
 						[class.marginTop]="i > 0" 
 						[ngStyle]="{
-							'height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 ),
-							'line-height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 )
+							'height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 ),
+							'line-height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 )
 						}"
 					>
-						<span>{{c.variationName}}</span>
+						<span>{{c.variation_name}}</span>
 					</li>
 				</ul>
 			</td>
 			<td valign="middle" class="separate-cell">
 				<ul>
 					<li 
-						*ngFor="let c of d.children; let i = index" 
+						*ngFor="let c of d.variations; let i = index" 
 						[class.marginTop]="i > 0"
 					>
 						<ul>
 							<li class="cell"
-								*ngFor="let o of c.ordersns; let i = index" 
+								*ngFor="let o of c.orders; let i = index" 
 								[class.marginTop]="i > 0" 
-							>{{o}}</li>
+							>{{o.ordersn}}</li>
 						</ul>
 					</li>
 				</ul>
@@ -70,28 +69,28 @@
 			<td valign="middle" class="separate-cell">
 				<ul>
 					<li class="cell"
-						*ngFor="let c of d.children; let i = index" 
+						*ngFor="let c of d.variations; let i = index" 
 						[class.marginTop]="i > 0" 
 						[ngStyle]="{
-							'height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 ),
-							'line-height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 )
+							'height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 ),
+							'line-height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 )
 						}"
 					>
-						<span>{{c.purchasAmount}}</span>
+						<span>{{c.variation_quantity_purchased}}</span>
 					</li>
 				</ul>
 			</td>
 			<td valign="middle" class="separate-cell">
 				<ul>
 					<li class="cell"
-						*ngFor="let c of d.children; let i = index" 
+						*ngFor="let c of d.variations; let i = index" 
 						[class.marginTop]="i > 0" 
 						[ngStyle]="{
-							'height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 ),
-							'line-height.px':35 * c.ordersns.length + 5 * ( c.ordersns.length - 1 )
+							'height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 ),
+							'line-height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 )
 						}"
 					>
-						<span>{{c.toltalPrice}}</span>
+						<span>{{c.variation_original_price * c.variation_quantity_purchased}}</span>
 					</li>
 				</ul>
 			</td>

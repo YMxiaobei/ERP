@@ -182,7 +182,7 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
   ordersnList: any = {};
   repeteOrdersns: string[] = [];
   ordersnList_height: number = 290;
-  data: any = mockData;
+  data: any;
   staticsFail: string[] = [];
   ordersn_repete_alert_target: string;
   clientHeight: number;
@@ -197,6 +197,7 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
   get_ordersnList_by: string = "update-time";
   get_ordersnList_startTime: string;
   get_ordersnList_endTime: string;
+  theads: string[] = [ "供应商", "货号", "ITEM SKU(父SKU)", "VARIATION ID", "VARIATION SKU(子SKU)", "VARIATION NAME", "订单编号", "采购总数", "金额" ];
 
   constructor(
     private postData: PostDataService,
@@ -295,8 +296,8 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.getData.getTable ( obj, this.currentShop )
-                .then ()
+    this.getData.getTable ( JSON.stringify ( obj ), this.currentShop )
+                .then ( this.afterGetTable.bind ( this ) ); 
   }
 
   getOrdersnList () {
@@ -321,6 +322,11 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
     start = Math.round ( start.getTime () / 1000 );
     end = Math.round ( end.getTime () / 1000 );
 
+    if ( start >= end ) {
+      this.alert = "timeErr";
+      return;
+    }
+
     this.loading = true;
 
     this.getData.getOrdersnList ( start, end, this.currentShop, this.get_ordersnList_by )
@@ -332,6 +338,11 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
 
     let list = JSON.parse ( rep._body ).orders;
     let a = 0;
+
+    if ( list.length === 0 ) {
+      this.alert = "emptyOrdersnList";
+      return;
+    }
 
     while ( list.length > 0 ) {
       let find = false;
@@ -354,8 +365,6 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
       }
       
     }
-
-    console.log ( this.ordersnList );
   }
 
   submitOrdersnList () {
@@ -396,14 +405,22 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
   afterGetTable ( rep: any ) {
     this.loading = false;
 
-    if ( rep.json().data ) {
-      let data = rep.json().data;
-      this.data = data.tableData;
-      this.staticsFail = data.fail;
+    let json = rep._body;
+
+    if ( json && json != "not this noe" ) {
+      let data = JSON.parse ( json );
+
+      console.log ( data );
+      this.data = data;
+      this.checkResult ( data );
     }
     else {
       this.alert = "get_table_fail";
     }
+  }
+
+  checkResult ( data: any ) {
+    
   }
 
   handleClientResize: any = ( function () {

@@ -17,6 +17,8 @@ export class GetDataService {
 	getTable ( ordersnList: any, shopId: string ) {
 		let url = this.host + this.API_getTable + "/" + shopId;
 
+		console.log ( ordersnList );
+
 		return this.http.post ( url, ordersnList, this.option )
 				   .toPromise ()
 				   .catch ( function ( err ) { console.log ( err ) } );	
