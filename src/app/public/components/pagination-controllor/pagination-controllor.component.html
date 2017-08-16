@@ -1,6 +1,6 @@
 <div class="pagination-controllor">
 	<a href="javascript:;" class="btn-pre-page" 
-		(click)="current_pagination = _current_pagination - 1"
+		(click)="current_pagination = _current_pagination - 1; page_change.emit ( _current_pagination )"
 	>上一页</a>
 	<ul class="list-unstyled pagination-list">
 		<li class="first" [ngClass]="{selected: _current_pagination===1}">
@@ -16,8 +16,7 @@
 		</li>
 	</ul>
 	<a href="javascript:;" class="btn-nest-page" 
-		(click)="current_pagination = _current_pagination + 1"
-		*ngIf="_current_pagination!==pagination_amount"
+		(click)="current_pagination = _current_pagination + 1; page_change.emit ( _current_pagination )"
 	>下一页</a>
 	<div class="jump-to" *ngIf="false">
 		<span>跳至</span>

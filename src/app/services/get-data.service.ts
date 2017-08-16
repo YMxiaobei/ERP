@@ -8,6 +8,7 @@ export class GetDataService {
 	API_getTable: string = "index.php/API2/getTable";
 	API_getShops: string = "index.php/API2/getShops";
 	API_getExcel: string = "index.php/API2/getExcel";
+	API_getPage: string = "index.php/API2/getPage";
 	API_getOrdersnList: string = "index.php/API2/getOrdersnList"
 	header: Headers = new Headers ( {'Content-Type':'application/json'} );
 	option: RequestOptionsArgs = {headers: this.header};
@@ -46,5 +47,13 @@ export class GetDataService {
 		return this.http.get ( url )
 						.toPromise ()
 						.catch ( function ( err ) { console.log ( err ) } );
+	}
+
+	getPage ( newPagination ) {
+		let url = this.host + this.API_getPage + "/" + newPagination;
+
+		return this.http.get ( url )
+						.toPromise ()
+						.catch ( function ( err ) { console.log ( err ) } );				
 	}
 }

@@ -56,9 +56,15 @@
 							<input type="text" 
 								(change)="addOrdersn ($event.target.value, i)"
 								[(ngModel)]="ordersn.value"
+								[class.webOrdersn]="ordersn.webOrdersn"
 							>
 						</div>
-						<div class="result-mark">
+						<div class="result-mark"
+							[ngClass]="{
+								success: ordersn.result === 'success',
+								fail: ordersn.result === 'fail'
+							}"
+						>
 							<span class="fa fa-check i-success"></span>
 							<span class="fa fa-close i-fail"></span>
 						</div>
@@ -109,9 +115,11 @@
 			</div>
 			<app-table [data]="data" [theads]="theads" *ngIf="data"></app-table>
 			<app-pagination-controllor
-				[pagination_amount]="17"
-				[show_pagination_len]="6"
+				[pagination_amount]="pagination_amount"
+				[show_pagination_len]="show_pagination_len"
 				[current_pagination]="1"
+				(page_change)="getPage($event)"
+				*ngIf="data"
 			></app-pagination-controllor>
 		</div>
 	</div>
@@ -224,5 +232,4 @@
 		(no)="alert=''"
 	></app-alert>
 	<app-loading *ngIf="loading"></app-loading>
-	<app-select></app-select>
 </div>

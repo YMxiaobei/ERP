@@ -5,158 +5,6 @@ import { timestampParse } from 'public/function/function';
 
 enableProdMode ();
 
-let mockData = {
-    theads: [
-      "供应商", "货号", "单价", "ITEM SKU(父SKU)", "VARIATION ID", "VARIATION SKU(子SKU)", "VARIATION NAME", "订单编号", "采购总数", "金额"
-    ],
-    datas:[
-      {
-        supplier: "深圳市",
-        ArtNo: "639#",
-        price: 9,
-        itemSku: "G00361",
-        children: [
-          {
-            variationId: "G00361A",
-            variationSku: "G00361A",
-            variationName: "iphone6s 土豪金",
-            ordersns: [ "1111111P", "2222222P" ],
-            purchasAmount: 10,
-            toltalPrice: 90
-          },
-          {
-            variationId: "G00361A",
-            variationSku: "G00361A",
-            variationName: "iphone6s 土豪金",
-            ordersns: [ "1111111P", "2222222P" ],
-            purchasAmount: 10,
-            toltalPrice: 90
-          }
-        ]
-      },
-      {
-        supplier: "深圳市",
-        ArtNo: "639#",
-        price: 9,
-        itemSku: "G00361",
-        children: [
-          {
-            variationId: "G00361A",
-            variationSku: "G00361A",
-            variationName: "iphone6s 土豪金",
-            ordersns: [ "1111111P", "2222222P" ],
-            purchasAmount: 10,
-            toltalPrice: 90
-          },
-          {
-            variationId: "G00361A",
-            variationSku: "G00361A",
-            variationName: "iphone6s 土豪金",
-            ordersns: [ "1111111P", "2222222P" ],
-            purchasAmount: 10,
-            toltalPrice: 90
-          }
-        ]
-      },
-      {
-        supplier: "深圳市",
-        ArtNo: "639#",
-        price: 9,
-        itemSku: "G00361",
-        children: [
-          {
-            variationId: "G00361A",
-            variationSku: "G00361A",
-            variationName: "iphone6s 土豪金",
-            ordersns: [ "1111111P", "2222222P" ],
-            purchasAmount: 10,
-            toltalPrice: 90
-          }
-        ]
-      },
-      {
-        supplier: "深圳市",
-        ArtNo: "639#",
-        price: 9,
-        itemSku: "G00361",
-        children: [
-          {
-            variationId: "G00361A",
-            variationSku: "G00361A",
-            variationName: "iphone6s 土豪金",
-            ordersns: [ "1111111P"],
-            purchasAmount: 10,
-            toltalPrice: 90
-          }
-        ]
-      },
-      {
-        supplier: "深圳市",
-        ArtNo: "639#",
-        price: 9,
-        itemSku: "G00361",
-        children: [
-          {
-            variationId: "G00361A",
-            variationSku: "G00361A",
-            variationName: "iphone6s 土豪金",
-            ordersns: [ "1111111P" ],
-            purchasAmount: 10,
-            toltalPrice: 90
-          }
-        ]
-      },
-      {
-        supplier: "深圳市",
-        ArtNo: "639#",
-        price: 9,
-        itemSku: "G00361",
-        children: [
-          {
-            variationId: "G00361A",
-            variationSku: "G00361A",
-            variationName: "iphone6s 土豪金",
-            ordersns: [ "1111111P" ],
-            purchasAmount: 10,
-            toltalPrice: 90
-          }
-        ]
-      },
-      {
-        supplier: "深圳市",
-        ArtNo: "639#",
-        price: 9,
-        itemSku: "G00361",
-        children: [
-          {
-            variationId: "G00361A",
-            variationSku: "G00361A",
-            variationName: "iphone6s 土豪金",
-            ordersns: [ "1111111P" ],
-            purchasAmount: 10,
-            toltalPrice: 90
-          }
-        ]
-      },
-      {
-        supplier: "深圳市",
-        ArtNo: "639#",
-        price: 9,
-        itemSku: "G00361",
-        children: [
-          {
-            variationId: "G00361A",
-            variationSku: "G00361A",
-            variationName: "iphone6s 土豪金",
-            ordersns: [ "1111111P" ],
-            purchasAmount: 10,
-            toltalPrice: 90
-          }
-        ]
-      }
-    ]
-  };
-
 @Component({
   selector: 'app-purchasing-table',
   templateUrl: './purchasing-table.component.html',
@@ -197,7 +45,11 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
   get_ordersnList_by: string = "update-time";
   get_ordersnList_startTime: string;
   get_ordersnList_endTime: string;
-  theads: string[] = [ "供应商", "货号", "ITEM SKU(父SKU)", "VARIATION ID", "VARIATION SKU(子SKU)", "VARIATION NAME", "订单编号", "采购总数", "金额" ];
+  theads: string[] = [ "供应商", "货号", "ITEM SKU(父SKU)",  "VARIATION NAME", "订单编号", "采购总数", "金额" ];
+
+  pagination_amount: number;
+  show_pagination_len: number = 6;
+  current_pagination: number = 1;
 
   constructor(
     private postData: PostDataService,
@@ -402,6 +254,24 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
     }
   }
 
+  getPage ( newPagination ) {
+    this.loading = true;
+
+    this.getData.getPage ( newPagination )   
+                .then ( this.afterGetPage.bind ( this ) );
+  }
+
+  afterGetPage ( rep:any ) {
+    this.loading = false;
+
+    let json = rep._body;
+
+    if ( json ) {
+      let data = JSON.parse ( json );
+      this.data = data;
+    }
+  }
+
   afterGetTable ( rep: any ) {
     this.loading = false;
 
@@ -410,17 +280,43 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
     if ( json && json != "not this noe" ) {
       let data = JSON.parse ( json );
 
-      console.log ( data );
       this.data = data;
-      this.checkResult ( data );
+      this.pagination_amount = data.pageAmount;
+
+      let index;
+
+      for ( index in this.ordersnList ) {
+        let finded = false;
+
+        for ( let i = 0, len = data.errors.length; i < len; i++ ) {
+          if ( data.errors[ i ] === this.ordersnList[ index ] ) {
+            this.ordersnStatus[ index - 0 ].result = "fail";
+            finded = true;
+            break;
+          }
+        }
+
+        if ( !finded ) {
+          this.ordersnStatus[ index - 0 ].result = "success";
+        }
+      }
+
+      
     }
     else {
       this.alert = "get_table_fail";
     }
   }
 
-  checkResult ( data: any ) {
-    
+  initGetOrdersnListTime () {
+    let dateEnd = new Date ();
+    let end = dateEnd.getFullYear () + "-" + ( dateEnd.getMonth () + 1 ) + "-" + dateEnd.getDate () + " 00:00:00"; 
+
+    let dateStart = new Date ( dateEnd.getTime () - 3600 * 24 * 1000 );
+    let start = dateStart.getFullYear () + "-" + ( dateStart.getMonth () + 1 ) + "-" + dateStart.getDate () + " 00:00:00";
+
+    this.get_ordersnList_startTime = start;
+    this.get_ordersnList_endTime = end;
   }
 
   handleClientResize: any = ( function () {
@@ -441,6 +337,8 @@ export class PurchasingTableComponent implements OnInit, OnDestroy {
                 }).bind ( this ) );
 
     let _selt = this;
+
+    this.initGetOrdersnListTime ();
 
     for ( let i = 0; i < 200; i++ ) {
       this.ordersnStatus.push ( { value:"", repete: false, result: "" } );

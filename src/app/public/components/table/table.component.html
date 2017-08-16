@@ -9,7 +9,7 @@
 			<td valign="middle" class="supplier">{{d.supplier}}</td>
 			<td valign="middle">{{d.ArtNo}}</td>
 			<td valign="middle">{{d.item_sku}}</td>
-			<td valign="middle" class="separate-cell">
+			<!-- <td valign="middle" class="separate-cell">
 				<ul>
 					<li class="cell"
 						*ngFor="let c of d.variations; let i = index" 
@@ -36,15 +36,15 @@
 						<span>{{c.variation_sku}}</span>
 					</li>
 				</ul>
-			</td>
+			</td> -->
 			<td valign="middle" class="separate-cell">
 				<ul>
 					<li class="cell"
 						*ngFor="let c of d.variations; let i = index" 
 						[class.marginTop]="i > 0" 
 						[ngStyle]="{
-							'height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 ),
-							'line-height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 )
+							'height.px':35 * c.orders.length + 1 * ( c.orders.length - 1 ),
+							'line-height.px':35 * c.orders.length + 1 * ( c.orders.length - 1 )
 						}"
 					>
 						<span>{{c.variation_name}}</span>
@@ -72,8 +72,8 @@
 						*ngFor="let c of d.variations; let i = index" 
 						[class.marginTop]="i > 0" 
 						[ngStyle]="{
-							'height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 ),
-							'line-height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 )
+							'height.px':35 * c.orders.length + 1 * ( c.orders.length - 1 ),
+							'line-height.px':35 * c.orders.length + 1 * ( c.orders.length - 1 )
 						}"
 					>
 						<span>{{c.variation_quantity_purchased}}</span>
@@ -86,8 +86,8 @@
 						*ngFor="let c of d.variations; let i = index" 
 						[class.marginTop]="i > 0" 
 						[ngStyle]="{
-							'height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 ),
-							'line-height.px':35 * c.orders.length + 5 * ( c.orders.length - 1 )
+							'height.px':35 * c.orders.length + 1 * ( c.orders.length - 1 ),
+							'line-height.px':35 * c.orders.length + 1 * ( c.orders.length - 1 )
 						}"
 					>
 						<span>{{c.variation_original_price * c.variation_quantity_purchased}}</span>

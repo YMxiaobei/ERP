@@ -5,9 +5,10 @@
 table {
 	width: 100%;
 	border-collapse: separate;
-    color: white;
+    color: #222;
     font-weight: bold;
-    border-spacing: 5px;
+    border-spacing: 1px;
+    background-color: #222;
 
 	td, th {
 		text-align: center;
@@ -17,15 +18,15 @@ table {
 	}
 
 	th {
-		background-color: $gray5;
+		background-color: #d9d9d9;
 	}
 
 	td {
-		background-color: $gray3;
+		background-color: white;
 	}
 
 	td.supplier {
-		background-color: $gray5;
+		background-color: #d9d9d9;
 	}
 
 	td.separate-cell {
@@ -36,11 +37,11 @@ table {
 .cell {
 	height: 35px;
 	line-height: 35px;
-	background-color: $gray3;
+	background-color: white;
 }
 
 .marginTop {
-	margin-top: 5px;
+	margin-top: 1px;
 }
 
 
